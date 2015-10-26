@@ -29,3 +29,10 @@
 *.exe
 *.out
 *.app
+*.suo
+*.opensdf
+*.tlog
+*.idb
+*.rc
+*.user
+*.log
