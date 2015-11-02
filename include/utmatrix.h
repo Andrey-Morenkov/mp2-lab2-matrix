@@ -210,21 +210,29 @@ TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 	else
 	{*/
     if ( Size != v.Size )
-		throw size;
-	TVector<ValType> tmp(v.Size, v.StartIndex);
-	for (int i = 0; i < Size; i++)
-		tmp.pVector[i] = pVector[i] - v.pVector[i];
-	return tmp;
+		throw (Size);
+	else
+	{
+	     TVector<ValType> tmp(v.Size, v.StartIndex);
+	     for (int i = 0; i < Size; i++)
+		     tmp.pVector[i] = pVector[i] - v.pVector[i];
+	     return tmp;
+	}
 }
 /*-------------------------------------------------------------------------*/
 
 template <class ValType> // скалярное произведение
 ValType TVector<ValType>::operator*(const TVector<ValType> &v)
 {
-	ValType tmp = 0;							
-	for (int i = 0; i < Size; i++)
-	    tmp = tmp + (pVector[i] * v.pVector[i]);
-	return tmp;
+	if ( Size != v.Size )
+		throw (Size);
+	else
+	{
+		ValType tmp = 0;							
+	    for (int i = 0; i < Size; i++)
+	        tmp = tmp + (pVector[i] * v.pVector[i]);
+	    return tmp;
+	}
 }
 /*-------------------------------------------------------------------------*/
 

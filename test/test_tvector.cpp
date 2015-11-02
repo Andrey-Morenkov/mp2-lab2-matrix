@@ -209,21 +209,63 @@ TEST(TVector, cant_add_vectors_with_not_equal_size)
 
 TEST(TVector, can_subtract_vectors_with_equal_size)
 {
-  ADD_FAILURE();
+    TVector<int> v(2);
+	TVector<int> v1(2);
+	TVector<int> v2(2);
+	TVector<int> v3(2);
+	v[0]=5;
+	v[1]=8;
+
+	v1[0]=3;
+	v1[1]=4;
+
+	v2[0]=2;
+	v2[1]=4;
+
+	v3= v-v1;
+
+	EXPECT_EQ(v3,v2);
 }
 
 TEST(TVector, cant_subtract_vectors_with_not_equal_size)
 {
-  ADD_FAILURE();
+    TVector<int> v (5);
+	TVector<int> v1(10);
+	for(int i = 0; i < v.GetSize(); i++)
+		v[i]=i;
+	for(int i = 0; i < v1.GetSize(); i++)
+		v1[i]=i;
+	ASSERT_ANY_THROW(v-v1);
 }
 
 TEST(TVector, can_multiply_vectors_with_equal_size)
 {
-  ADD_FAILURE();
+    TVector<int> v(2);
+	TVector<int> v1(2);
+	int mltpl;
+	v[0]=5;
+	v[1]=8;
+
+	v1[0]=3;
+	v1[1]=4;
+
+	mltpl= v*v1;
+
+	EXPECT_EQ(47,mltpl); //5*3 + 8*4=47
 }
 
 TEST(TVector, cant_multiply_vectors_with_not_equal_size)
 {
-  ADD_FAILURE();
+    TVector<int> v(2);
+	TVector<int> v1(3);
+	int mltpl;
+	v[0]=5;
+	v[1]=8;
+
+	v1[0]=3;
+	v1[1]=4;
+	v1[2]=5;
+
+	ASSERT_ANY_THROW(v*v1);
 }
 
