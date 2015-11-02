@@ -39,3 +39,9 @@
 *.pdb
 *.vcxproj
 *.manifest
+*.lastbuildstate
+*.sdf
+*.vcxproj
+*.cache
+*.ipch
+*.vcxproj

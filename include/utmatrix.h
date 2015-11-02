@@ -172,7 +172,7 @@ TVector<ValType> TVector<ValType>::operator*(const ValType &val)
 template <class ValType> // сложение
 TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 {
-	if ( Size > v.Size )
+	/*if ( Size > v.Size )
 	{
 		TVector<ValType> tmp(Size, StartIndex);
 		for (int i = 0; i < v.Size; i++)
@@ -182,13 +182,15 @@ TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 		return tmp;
 	}
 	else
+	{*/
+	if (Size != v.Size)
+		throw (Size);
+	else
 	{
-		TVector<ValType> tmp(v.Size, v.StartIndex);
-		for (int i = 0; i < Size; i++)
-			tmp.pVector[i] = pVector[i] + v.pVector[i];
-		for (int i = Size; i < v.Size; i++)
-			tmp.pVector[i] = v.pVector[i];
-		return tmp;
+		TVector<ValType> tmp(Size,StartIndex);
+	    for (int i = 0; i < Size; i++)
+		    tmp.pVector[i] = pVector[i] + v.pVector[i];
+	    return tmp;
 	}
 }
 /*-------------------------------------------------------------------------*/
@@ -196,7 +198,7 @@ TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 template <class ValType> // вычитание
 TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 {
-	if ( Size > v.Size )
+	/*if ( Size > v.Size )
 	{
 		TVector<ValType> tmp(Size, StartIndex);
 		for (int i = 0; i < v.Size; i++)
@@ -206,38 +208,23 @@ TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 		return tmp;
 	}
 	else
-	{
-		TVector<ValType> tmp(v.Size, v.StartIndex);
-		for (int i = 0; i < Size; i++)
-			tmp.pVector[i] = pVector[i] - v.pVector[i];
-		for (int i = Size; i < v.Size; i++)
-			tmp.pVector[i] = -(v.pVector[i]);
-		return tmp;
-	}
+	{*/
+    if ( Size != v.Size )
+		throw size;
+	TVector<ValType> tmp(v.Size, v.StartIndex);
+	for (int i = 0; i < Size; i++)
+		tmp.pVector[i] = pVector[i] - v.pVector[i];
+	return tmp;
 }
 /*-------------------------------------------------------------------------*/
 
 template <class ValType> // скалярное произведение
 ValType TVector<ValType>::operator*(const TVector<ValType> &v)
 {
-	if ( Size > v.Size )
-	{
-		TVector<ValType> tmp(Size, StartIndex);
-		for (int i = 0; i < v.Size; i++)
-			tmp.pVector[i] = pVector[i] * v.pVector[i];
-		for (int i = v.Size; i < Size; i++)
-			tmp.pVector[i] = 0;
-		return tmp;
-	}
-	else
-	{
-		TVector<ValType> tmp(v.Size, v.StartIndex);
-		for (int i = 0; i < Size; i++)
-			tmp.pVector[i] = pVector[i] * v.pVector[i];
-		for (int i = Size; i < v.Size; i++)
-			tmp.pVector[i] = 0;
-		return tmp;
-	}
+	ValType tmp = 0;							
+	for (int i = 0; i < Size; i++)
+	    tmp = tmp + (pVector[i] * v.pVector[i]);
+	return tmp;
 }
 /*-------------------------------------------------------------------------*/
 
