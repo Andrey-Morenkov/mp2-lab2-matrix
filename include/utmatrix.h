@@ -53,7 +53,7 @@ public:
   }
   friend ostream& operator<<(ostream &out, const TVector &v)
   {
-    for (int i = 0; i < v.Size; i++)
+	  for (int i = 0; i < v.Size; i++)
       out << v.pVector[i] << ' ';
     return out;
   }
@@ -62,9 +62,14 @@ public:
 template <class ValType>
 TVector<ValType>::TVector(int s=10, int si=0)
 {
-	Size = s;
-	StartIndex = si;
-	pVector = new ValType [Size];
+	if (( s <= 0) || ( s >= MAX_VECTOR_SIZE) || ( si < 0))
+		throw s;
+	else
+	{
+		Size = s;
+	    StartIndex = si;
+	    pVector = new ValType [Size];
+	}
 } 
 /*-------------------------------------------------------------------------*/
 
@@ -73,6 +78,7 @@ TVector<ValType>::TVector(const TVector<ValType> &v)
 {
 	Size = v.Size;
 	StartIndex = v.StartIndex;
+	pVector = new ValType[Size];
 	for (int i = 0; i < Size; i++)
 	{
 		pVector[i] = v.pVector[i];
@@ -90,7 +96,9 @@ TVector<ValType>::~TVector()
 template <class ValType> // доступ
 ValType& TVector<ValType>::operator[](int pos)
 {
-	return pVector[pos];
+	if ((pos < 0) || (pos > Size))
+		throw pos;
+	return pVector[pos-StartIndex];
 } 
 /*-------------------------------------------------------------------------*/
 
@@ -124,6 +132,7 @@ TVector<ValType>& TVector<ValType>::operator=(const TVector &v)
 		Size = v.Size;
 		pVector = new ValType [Size] ;
 	}
+	StartIndex = v.StartIndex;
 	for (int i = 0; i < Size; i++)
 		pVector[i] = v.pVector[i];
 	return *this;
@@ -265,7 +274,7 @@ public:
 template <class ValType>
 TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType> >(s)
 {
-	if (s <= 0)
+	if ((s <= 0) || (s >= MAX_MATRIX_SIZE))
 		throw s;
 	else
 	{
@@ -279,24 +288,25 @@ TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType> >(s)
 /*-------------------------------------------------------------------------*/
 
 template <class ValType> // конструктор копирования
-TMatrix<ValType>::TMatrix(const TMatrix<ValType> &mt): TVector<TVector<ValType> >(mt)  // вызываем контруктор копирования для векторов т.к матирица - вектор векторов
+TMatrix<ValType>::TMatrix(const TMatrix<ValType> &mt): TVector<TVector<ValType> >(mt) // вызываем контруктор копирования для векторов т.к матирица - вектор векторов
 {
-}
+} 
+
 /*-------------------------------------------------------------------------*/
 template <class ValType> // конструктор преобразования типа
-TMatrix<ValType>::TMatrix(const TVector<TVector<ValType> > &mt): TVector<TVector<ValType> >(mt)
+TMatrix<ValType>::TMatrix(const TVector<TVector<ValType> > &mt): TVector<TVector<ValType> > (mt)
 {
 }
 /*-------------------------------------------------------------------------*/
 template <class ValType> // сравнение
 bool TMatrix<ValType>::operator==(const TMatrix<ValType> &mt) const
 {
-	if (size != mt.Size)
+	if (Size != mt.Size)
 		return false;
 	for (int i=0; i < Size; i++)
 	{
 		if ( pVector[i] != mt.pVector[i])
-			return false
+			return false;
 	}
 	return true;
 } 

@@ -36,3 +36,6 @@
 *.rc
 *.user
 *.log
+*.pdb
+*.vcxproj
+*.manifest
