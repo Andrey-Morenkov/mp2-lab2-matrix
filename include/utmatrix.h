@@ -298,12 +298,13 @@ bool TMatrix<ValType>::operator==(const TMatrix<ValType> &mt) const
 {
 	if (Size != mt.Size)
 		return false;
-	for (int i=0; i < Size; i++)
+	else
 	{
-		if ( pVector[i] != mt.pVector[i])
-			return false;
+		for (int i=0; i < Size; i++)
+		    if ( pVector[i] != mt.pVector[i])
+				return false;
+	    return true;
 	}
-	return true;
 } 
 /*-------------------------------------------------------------------------*/
 
