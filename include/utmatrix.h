@@ -119,7 +119,15 @@ bool TVector<ValType>::operator==(const TVector &v) const
 template <class ValType> // сравнение
 bool TVector<ValType>::operator!=(const TVector &v) const
 {
-	return !(*this == v);
+	//return !(*this == v);
+	if ( Size != v.Size)
+		return true;
+	for (int i = 0; i < Size; i++)
+	{
+		if ( pVector[i] != v.pVector[i] )
+			return true;
+	}
+	return false;
 }
 /*-------------------------------------------------------------------------*/
 
@@ -316,7 +324,7 @@ bool TMatrix<ValType>::operator!=(const TMatrix<ValType> &mt) const
 	for (int i=0; i < Size; i++)
 	{
 		if ( pVector[i] != mt.pVector[i])
-			return true
+			return true;
 	}
 	return false;
 } 

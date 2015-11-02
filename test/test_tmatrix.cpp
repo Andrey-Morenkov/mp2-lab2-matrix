@@ -74,7 +74,7 @@ TEST(TMatrix, throws_when_set_element_with_too_large_index)
 
 TEST(TMatrix, can_assign_matrix_to_itself)
 {
-  TMatrix<int> m (5), 
+  TMatrix<int> m (5);
   TMatrix<int> m1(5);
   m[0][1] = 1;
   m1[0][1] = 1;
@@ -88,7 +88,8 @@ TEST(TMatrix, can_assign_matrices_of_equal_size)
     TMatrix<int> m (5);
 	TMatrix<int> m1(5);
 
-	ASSERT_NO_THROW(m1 = m);
+	ASSERT_NO_THROW(m = m1);
+	EXPECT_EQ(m, m1);
 }
 
 TEST(TMatrix, assign_operator_change_matrix_size)
@@ -98,7 +99,11 @@ TEST(TMatrix, assign_operator_change_matrix_size)
 
 TEST(TMatrix, can_assign_matrices_of_different_size)
 {
-  ADD_FAILURE();
+    TMatrix<int> m (5);
+	TMatrix<int> m1(10);
+
+	ASSERT_NO_THROW(m = m1);
+	EXPECT_EQ(m, m1);
 }
 
 TEST(TMatrix, compare_equal_matrices_return_true)
@@ -108,12 +113,16 @@ TEST(TMatrix, compare_equal_matrices_return_true)
 
 TEST(TMatrix, compare_matrix_with_itself_return_true)
 {
-  ADD_FAILURE();
+    TMatrix<int> m(5);
+	
+	ASSERT_TRUE(m == m);
 }
 
 TEST(TMatrix, matrices_with_different_size_are_not_equal)
 {
-  ADD_FAILURE();
+    TMatrix<int> m (5);
+	TMatrix<int> m1(10);
+	EXPECT_NE(m, m1);
 }
 
 TEST(TMatrix, can_add_matrices_with_equal_size)
