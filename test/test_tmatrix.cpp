@@ -87,8 +87,11 @@ TEST(TMatrix, can_assign_matrices_of_equal_size)
 {
     TMatrix<int> m (5);
 	TMatrix<int> m1(5);
+	for(int i=0; i < m.GetSize(); i++)
+		m1[i]=1;
 
 	ASSERT_NO_THROW(m = m1);
+	m=m1;
 	EXPECT_EQ(m, m1);
 }
 
@@ -103,6 +106,7 @@ TEST(TMatrix, can_assign_matrices_of_different_size)
 	TMatrix<int> m1(10);
 
 	ASSERT_NO_THROW(m = m1);
+	m = m1;
 	EXPECT_EQ(m, m1);
 }
 
@@ -122,12 +126,13 @@ TEST(TMatrix, matrices_with_different_size_are_not_equal)
 {
     TMatrix<int> m (5);
 	TMatrix<int> m1(10);
+
 	EXPECT_NE(m, m1);
 }
 
 TEST(TMatrix, can_add_matrices_with_equal_size)
 {
-  ADD_FAILURE();
+	
 }
 
 TEST(TMatrix, cant_add_matrices_with_not_equal_size)
