@@ -74,10 +74,16 @@ TEST(TMatrix, throws_when_set_element_with_too_large_index)
 
 TEST(TMatrix, can_assign_matrix_to_itself)
 {
-  TMatrix<int> m (5);
-  TMatrix<int> m1(5);
-  m[0][1] = 1;
-  m1[0][1] = 1;
+    TMatrix<int> m (2);
+	TMatrix<int> m1(2);
+	
+	m [0][0]= 1;     // 1 1 
+	m [0][1]= 1;     // 0 1
+	m [1][1]= 1;
+
+	m1[0][0]= 1;     // 1 1 
+	m1[0][1]= 1;     // 0 1
+	m1[1][1]= 1;
 
   ASSERT_NO_THROW(m = m);
   EXPECT_EQ(m, m1);
@@ -107,8 +113,14 @@ TEST(TMatrix, assign_operator_change_matrix_size)
 
 TEST(TMatrix, can_assign_matrices_of_different_size)
 {
-    TMatrix<int> m (5);
-	TMatrix<int> m1(10);
+    TMatrix<int> m (1);
+	TMatrix<int> m1(2);
+	
+	m [0][0]= 1;     // 1 
+
+	m1[0][0]= 1;     // 1 1 
+	m1[0][1]= 1;     // 0 1
+	m1[1][1]= 1;
 
 	ASSERT_NO_THROW(m = m1);
 	m = m1;
@@ -117,10 +129,18 @@ TEST(TMatrix, can_assign_matrices_of_different_size)
 
 TEST(TMatrix, compare_equal_matrices_return_true)       // как это работает????
 {
-  	TMatrix<int> m1(5);
-	TMatrix<int> m2(5);
+  	TMatrix<int> m (2);
+	TMatrix<int> m1(2);
+	
+	m [0][0]= 1;     // 1 1 
+	m [0][1]= 1;     // 0 1
+	m [1][1]= 1;
 
-	ASSERT_TRUE(m1 == m2);
+	m1[0][0]= 1;     // 1 1 
+	m1[0][1]= 1;     // 0 1
+	m1[1][1]= 1;
+
+	ASSERT_TRUE(m == m1);
 }
 
 TEST(TMatrix, compare_matrix_with_itself_return_true)

@@ -285,6 +285,7 @@ TMatrix<ValType>::TMatrix(int s): TVector<TVector<ValType> >(s)
 		{
 			TVector <ValType> tmp (s-i,i);
 			pVector[i] = tmp;
+			//pVector[i]= TVector<ValType>(s,i);
 		}
 	}
 }
@@ -348,14 +349,27 @@ TMatrix<ValType>& TMatrix<ValType>::operator=(const TMatrix<ValType> &mt)
 template <class ValType> // сложение
 TMatrix<ValType> TMatrix<ValType>::operator+(const TMatrix<ValType> &mt)
 {
-	return TVector<TVector<ValType> > :: operator+ (mt); 
+	if (Size != mt.Size)
+		throw Size;
+	TMatrix<ValType> tmp(Size);
+	for (int i = 0; i < Size; i++)
+		tmp.pVector[i] = pVector[i] + mt.pVector[i];
+	return tmp;
+	//return TVector<TVector<ValType> > :: operator+ (mt); 
 }
 /*-------------------------------------------------------------------------*/
 
 template <class ValType> // вычитание
 TMatrix<ValType> TMatrix<ValType>::operator-(const TMatrix<ValType> &mt)
 {
-	return TVector<TVector<ValType> > :: operator- (mt); 
+	if (Size != mt.Size)
+		throw Size;
+	TMatrix<ValType> tmp(Size);
+	if (Size == mt.Size)
+	for (int i = 0; i < Size; i++)
+		tmp.pVector[i] = pVector[i] - mt.pVector[i];
+	return tmp;
+	//return TVector<TVector<ValType> > :: operator- (mt); 
 } 
 /*-------------------------------------------------------------------------*/
 
